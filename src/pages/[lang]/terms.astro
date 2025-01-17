@@ -1,0 +1,211 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, supportedLangs } from '../../i18n/config';
+
+export function getStaticPaths() {
+  return supportedLangs.map(lang => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+
+const content = {
+  zh: {
+    title: "服务条款",
+    sections: [
+      {
+        title: "1. 服务说明",
+        content: [
+          "AppliCrawler 是一个求职工具，帮助用户管理和追踪职位申请。使用本服务即表示您同意以下条款。"
+        ]
+      },
+      {
+        title: "2. 用户责任",
+        content: [
+          "用户应当：",
+          "- 提供真实、准确的信息",
+          "- 保护账户安全",
+          "- 遵守相关法律法规",
+          "- 不得滥用或破坏服务"
+        ]
+      },
+      {
+        title: "3. 知识产权",
+        content: [
+          "AppliCrawler 的所有内容和功能均受知识产权保护：",
+          "- 所有权利归 AppliCrawler 所有",
+          "- 未经授权不得复制或分发",
+          "- 用户保留其上传内容的权利"
+        ]
+      },
+      {
+        title: "4. 服务变更",
+        content: [
+          "我们保留以下权利：",
+          "- 随时修改服务内容和条款",
+          "- 暂停或终止服务",
+          "- 更新定价和功能"
+        ]
+      },
+      {
+        title: "5. 免责声明",
+        content: [
+          "AppliCrawler：",
+          "- 不保证服务不会中断",
+          "- 不对因使用服务造成的损失负责",
+          "- 不对第三方内容负责"
+        ]
+      },
+      {
+        title: "6. 适用法律",
+        content: [
+          "本条款受中国法律管辖：",
+          "- 争议优先友好协商解决",
+          "- 协商不成可提交法院裁决"
+        ]
+      }
+    ],
+    backToHome: "← 返回首页"
+  },
+  en: {
+    title: "Terms of Service",
+    sections: [
+      {
+        title: "1. Service Description",
+        content: [
+          "AppliCrawler is a job search tool that helps users manage and track job applications. By using this service, you agree to these terms."
+        ]
+      },
+      {
+        title: "2. User Responsibilities",
+        content: [
+          "Users must:",
+          "- Provide true and accurate information",
+          "- Protect account security",
+          "- Comply with applicable laws",
+          "- Not abuse or disrupt the service"
+        ]
+      },
+      {
+        title: "3. Intellectual Property",
+        content: [
+          "All content and features of AppliCrawler are protected by intellectual property rights:",
+          "- All rights reserved by AppliCrawler",
+          "- No unauthorized copying or distribution",
+          "- Users retain rights to their uploaded content"
+        ]
+      },
+      {
+        title: "4. Service Changes",
+        content: [
+          "We reserve the right to:",
+          "- Modify service content and terms at any time",
+          "- Suspend or terminate services",
+          "- Update pricing and features"
+        ]
+      },
+      {
+        title: "5. Disclaimer",
+        content: [
+          "AppliCrawler:",
+          "- Does not guarantee uninterrupted service",
+          "- Is not liable for losses from service use",
+          "- Is not responsible for third-party content"
+        ]
+      },
+      {
+        title: "6. Governing Law",
+        content: [
+          "These terms are governed by Chinese law:",
+          "- Disputes shall be resolved through friendly negotiation",
+          "- Legal action may be taken if negotiation fails"
+        ]
+      }
+    ],
+    backToHome: "← Back to Home"
+  }
+};
+
+const pageContent = content[lang as keyof typeof content];
+---
+
+<Layout title={`${pageContent.title} - AppliCrawler`} lang={lang}>
+  <div class="terms-page">
+    <div class="container">
+      <h1>{pageContent.title}</h1>
+      
+      {pageContent.sections.map(section => (
+        <>
+          <h2>{section.title}</h2>
+          {section.content.map(text => (
+            <p>{text}</p>
+          ))}
+        </>
+      ))}
+
+      <a href={`/${lang}`} class="back-link">{pageContent.backToHome}</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .terms-page {
+    padding: 8rem 0;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    color: rgb(var(--primary));
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: rgb(var(--primary));
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    color: rgba(var(--text), 0.8);
+    line-height: 1.6;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    color: rgb(var(--primary));
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .back-link:hover {
+    color: rgba(var(--primary), 0.8);
+  }
+
+  @media (max-width: 768px) {
+    .terms-page {
+      padding: 6rem 0;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+    }
+  }
+</style>

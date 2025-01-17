@@ -3,14 +3,14 @@ const platforms = [
   { name: 'LinkedIn', url: 'linkedin.com/jobs' },
   { name: 'Indeed', url: 'indeed.com' },
   { name: 'Glassdoor', url: 'glassdoor.com/jobs' },
-  { name: '51job', url: '51job.com' },
-  { name: 'BOSS直聘', url: 'zhipin.com' },
-  { name: '猎聘网', url: 'liepin.com' }
+  { name: 'Remote OK', url: 'remoteok.com' },
+  { name: 'Stack Overflow', url: 'stackoverflow.com/jobs' },
+  { name: 'We Work Remotely', url: 'weworkremotely.com' }
 ];
 ---
 
 <div class="platform-suggestions">
-  <span class="suggestion-text">试试这些平台</span>
+  <span class="suggestion-text">Try these platforms</span>
   <div class="suggestion-container">
     {platforms.map(platform => (
       <div class="platform-url">
@@ -84,34 +84,3 @@ const platforms = [
     font-size: 0.875rem;
   }
 </style>
-
-<script>
-  function setupPlatformSuggestions() {
-    const containers = document.querySelectorAll('.platform-suggestions');
-    
-    containers.forEach(container => {
-      const platforms = container.querySelectorAll('.platform-url');
-      let currentIndex = 0;
-
-      function showNextPlatform() {
-        // Hide current platform
-        platforms[currentIndex].classList.remove('active');
-        
-        // Move to next platform
-        currentIndex = (currentIndex + 1) % platforms.length;
-        
-        // Show new platform
-        platforms[currentIndex].classList.add('active');
-      }
-
-      // Show first platform
-      platforms[0].classList.add('active');
-
-      // Start rotation
-      setInterval(showNextPlatform, 2000);
-    });
-  }
-
-  // Initialize platform suggestions
-  setupPlatformSuggestions();
-</script>

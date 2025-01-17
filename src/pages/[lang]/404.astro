@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, supportedLangs } from '../../i18n/config';
+
+export function getStaticPaths() {
+  return supportedLangs.map(lang => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<Layout title="404 - 页面未找到" lang={lang}>
+  <div class="error-page">
+    <div class="error-content">
+      <h1>404</h1>
+      <p>抱歉，页面未找到</p>
+      <a href={`/${lang}`} class="home-link">返回首页</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .error-content {
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 6rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, rgb(var(--primary)), rgb(var(--secondary)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  p {
+    font-size: 1.5rem;
+    color: rgba(var(--text), 0.8);
+    margin-bottom: 2rem;
+  }
+
+  .home-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: rgb(var(--primary));
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .home-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary), 0.2);
+  }
+</style>

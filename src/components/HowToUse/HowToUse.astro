@@ -1,0 +1,67 @@
+---
+import SectionTitle from '../shared/SectionTitle.astro';
+import Step from './Step.astro';
+
+const steps = [
+  {
+    number: "01",
+    title: "下载安装",
+    description: "从 Chrome 商店下载并安装插件，点击右上角的'添加至 Chrome'按钮完成安装"
+  },
+  {
+    number: "02",
+    title: "一键收藏",
+    description: "浏览招聘网站时点击插件图标，即可一键保存职位信息，包括职位详情、公司信息等"
+  },
+  {
+    number: "03",
+    title: "统一管理",
+    description: "在插件面板中查看所有已收藏的职位，支持按平台、职位类型、技能要求等多维度筛选"
+  }
+];
+---
+
+<section class="how-to-use">
+  <div class="container">
+    <SectionTitle text="使用方法" />
+    <div class="steps">
+      {steps.map(step => (
+        <Step {...step} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .how-to-use {
+    padding: 8rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .how-to-use {
+      padding: 6rem 0;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+
+    .steps {
+      gap: 1.5rem;
+    }
+  }
+</style>

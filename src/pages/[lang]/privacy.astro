@@ -1,0 +1,109 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, supportedLangs } from '../../i18n/config';
+
+export function getStaticPaths() {
+  return supportedLangs.map(lang => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<Layout title="隐私政策 - AppliCrawler" lang={lang}>
+  <div class="privacy-page">
+    <div class="container">
+      <h1>隐私政策</h1>
+      
+      <h2>1. 信息收集</h2>
+      <p>我们仅收集您在使用 AppliCrawler 过程中必要的信息，包括：</p>
+      <p>- 您手动保存的职位信息</p>
+      <p>- 基本的使用统计数据</p>
+
+      <h2>2. 信息使用</h2>
+      <p>我们收集的信息仅用于：</p>
+      <p>- 提供和改进 AppliCrawler 的服务</p>
+      <p>- 为您提供个性化的职位推荐</p>
+
+      <h2>3. 信息安全</h2>
+      <p>我们采用行业标准的安全措施保护您的数据：</p>
+      <p>- 所有数据传输采用 HTTPS 加密</p>
+      <p>- 定期安全审计和更新</p>
+
+      <h2>4. 信息共享</h2>
+      <p>我们不会将您的个人信息出售、出租或与第三方共享，除非：</p>
+      <p>- 获得您的明确授权</p>
+      <p>- 法律法规要求</p>
+
+      <h2>5. 您的权利</h2>
+      <p>您有权：</p>
+      <p>- 访问和导出您的数据</p>
+      <p>- 要求删除您的账户和数据</p>
+      <p>- 选择退出数据收集</p>
+
+      <a href={`/${lang}`} class="back-link">← 返回首页</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .privacy-page {
+    padding: 8rem 0;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    color: rgb(var(--primary));
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: rgb(var(--primary));
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    color: rgba(var(--text), 0.8);
+    line-height: 1.6;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    color: rgb(var(--primary));
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .back-link:hover {
+    color: rgba(var(--primary), 0.8);
+  }
+
+  @media (max-width: 768px) {
+    .privacy-page {
+      padding: 6rem 0;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+    }
+  }
+</style>

@@ -1,0 +1,91 @@
+---
+import Background from './Background.astro';
+import AnimatedBackground from './AnimatedBackground.astro';
+import DownloadButton from './DownloadButton.astro';
+import AnimatedTitle from './AnimatedTitle.astro';
+---
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="logo-container">
+      <div class="logo-glow"></div>
+      <AnimatedTitle />
+    </div>
+    <p class="subtitle">一键收藏各大招聘平台的职位，让求职更有条理</p>
+    <div class="cta-buttons">
+      <DownloadButton />
+    </div>
+  </div>
+  <AnimatedBackground />
+  <Background />
+</section>
+
+<style>
+  .hero {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 64px;
+    padding: 2rem;
+  }
+
+  .hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 0;
+  }
+
+  .logo-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 2rem;
+  }
+
+  .logo-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(var(--primary), 0.2) 0%, transparent 70%);
+    filter: blur(20px);
+    pointer-events: none;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+    color: rgba(var(--text), 0.8);
+    margin-bottom: 3rem;
+    line-height: 1.5;
+  }
+
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      min-height: calc(100vh - 56px);
+      margin-top: 56px;
+      padding: 1rem;
+    }
+
+    .hero-content {
+      padding: 2rem 0;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+  }
+</style>

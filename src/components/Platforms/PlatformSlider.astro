@@ -1,0 +1,165 @@
+---
+const platforms = [
+  { name: "LinkedIn", icon: "/linkedin.svg", color: "#0077B5" },
+  { name: "Indeed", icon: "/indeed.svg", color: "#2164F3" },
+  { name: "Glassdoor", icon: "/glassdoor.svg", color: "#0CAA41" },
+  { name: "Vue Jobs", icon: "/vuejs.svg", color: "#42B883" },
+  { name: "JustJoin.it", icon: "/justjoin.svg", color: "#FF0054" },
+  { name: "RemoteOK", icon: "/remoteok.svg", color: "#FF4742" },
+  { name: "51job", icon: "/51job.svg", color: "#FF6721" },
+  { 
+    name: "BOSS直聘", 
+    icon: "/boss.svg", 
+    color: "#00B38A",
+    whiteBackground: true 
+  },
+  { 
+    name: "猎聘网", 
+    icon: "/liepin.svg", 
+    color: "#FF6721",
+    whiteBackground: true
+  }
+];
+---
+
+<div class="platform-slider">
+  <div class="slider-track">
+    {platforms.map(platform => (
+      <div class="platform-card">
+        <div class={`icon-wrapper ${platform.whiteBackground ? 'white-bg' : ''}`}>
+          <img src={platform.icon} alt={platform.name} loading="lazy" />
+        </div>
+        <span class="platform-name">{platform.name}</span>
+      </div>
+    ))}
+    {platforms.map(platform => (
+      <div class="platform-card" aria-hidden="true">
+        <div class={`icon-wrapper ${platform.whiteBackground ? 'white-bg' : ''}`}>
+          <img src={platform.icon} alt={platform.name} loading="lazy" />
+        </div>
+        <span class="platform-name">{platform.name}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .platform-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 2rem 0;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 15%,
+      black 85%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 15%,
+      black 85%,
+      transparent
+    );
+  }
+
+  .slider-track {
+    display: flex;
+    gap: 2rem;
+    animation: scroll 40s linear infinite;
+    width: max-content;
+    padding: 1rem;
+  }
+
+  .platform-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    background: rgb(var(--card-bg));
+    border-radius: 16px;
+    border: 1px solid rgba(var(--text), 0.1);
+    transition: all 0.3s ease;
+    min-width: 200px;
+  }
+
+  .icon-wrapper {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(var(--text), 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .icon-wrapper.white-bg {
+    background: white;
+  }
+
+  .icon-wrapper img {
+    width: 48px;
+    height: 48px;
+    transition: transform 0.3s ease;
+  }
+
+  .platform-name {
+    color: rgb(var(--text));
+    font-weight: 500;
+  }
+
+  .platform-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: rgba(var(--primary), 0.3);
+  }
+
+  .platform-card:hover .icon-wrapper:not(.white-bg) {
+    background: rgba(var(--primary), 0.1);
+  }
+
+  .platform-card:hover img {
+    transform: scale(1.1);
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .slider-track:hover {
+    animation-play-state: paused;
+  }
+
+  @media (max-width: 768px) {
+    .platform-slider {
+      mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 5%,
+        black 95%,
+        transparent
+      );
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 5%,
+        black 95%,
+        transparent
+      );
+    }
+
+    .platform-card {
+      min-width: 160px;
+      padding: 1.5rem;
+    }
+  }
+</style>

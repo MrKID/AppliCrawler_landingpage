@@ -1,0 +1,50 @@
+---
+---
+
+<div class="carousel-controls">
+  <button class="carousel-prev" aria-label="Previous slide">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+  </button>
+  <button class="carousel-next" aria-label="Next slide">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 18l6-6-6-6" />
+    </svg>
+  </button>
+</div>
+
+<style>
+  .carousel-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(var(--text), 0.1);
+    background: rgb(var(--card-bg));
+    color: rgb(var(--text));
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  button:hover {
+    background: rgb(var(--primary));
+    color: white;
+    border-color: rgb(var(--primary));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary), 0.2);
+  }
+
+  button:active {
+    transform: translateY(0);
+  }
+</style>

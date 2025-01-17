@@ -1,0 +1,38 @@
+---
+interface Props {
+  as?: 'h1' | 'h2' | 'h3' | 'p';
+  class?: string;
+  delay?: number;
+}
+
+const { as: Component = 'p', class: className = '', delay = 0 } = Astro.props;
+---
+
+<Component 
+  class:list={[
+    'animate-text',
+    className
+  ]}
+  style={`animation-delay: ${delay}ms`}
+>
+  <slot />
+</Component>
+
+<style>
+  .animate-text {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

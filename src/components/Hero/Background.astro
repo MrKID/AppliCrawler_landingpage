@@ -1,0 +1,61 @@
+---
+---
+<div class="hero-background">
+  <div class="gradient-sphere gradient-1"></div>
+  <div class="gradient-sphere gradient-2"></div>
+  <div class="grid"></div>
+</div>
+
+<style>
+  .hero-background {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .gradient-sphere {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+
+  .gradient-1 {
+    width: 50vw;
+    height: 50vw;
+    background: var(--gradient-1);
+    top: -10%;
+    right: -10%;
+    animation: float 20s ease-in-out infinite;
+  }
+
+  .gradient-2 {
+    width: 40vw;
+    height: 40vw;
+    background: var(--gradient-2);
+    bottom: -10%;
+    left: -10%;
+    animation: float 15s ease-in-out infinite reverse;
+  }
+
+  .grid {
+    position: absolute;
+    inset: -100%;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    transform: perspective(1000px) rotateX(60deg);
+    animation: grid 20s linear infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(30px, 30px) rotate(5deg); }
+  }
+
+  @keyframes grid {
+    0% { transform: perspective(1000px) rotateX(60deg) translateY(0); }
+    100% { transform: perspective(1000px) rotateX(60deg) translateY(50px); }
+  }
+</style>

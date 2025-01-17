@@ -1,0 +1,100 @@
+---
+---
+
+<div class="cursor">
+  <svg width="20" height="20" viewBox="0 0 20 20">
+    <path d="M3 0l17 6.5-6.5 2.5 4 4-3 3-4-4-2.5 6.5z" fill="currentColor"/>
+  </svg>
+</div>
+
+<style>
+  .cursor {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    color: rgba(var(--text), 0.8);
+    z-index: 100;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cursor.active {
+    opacity: 1;
+  }
+
+  .cursor.clicking {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  .cursor.fade-out {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 40px));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>
+
+<script>
+  function setupCursorAnimation(container) {
+    const cursor = container.querySelector('.cursor');
+    const saveButton = container.querySelector('.save-button');
+    const successMessage = container.querySelector('.success-message');
+    
+    if (!cursor || !saveButton || !successMessage) return;
+
+    function animate() {
+      // Reset states
+      cursor.style.transition = 'none';
+      cursor.style.opacity = '0';
+      cursor.classList.remove('clicking', 'fade-out');
+      successMessage.classList.remove('show');
+      saveButton.classList.remove('active');
+
+      // Fixed positions for consistent movement
+      const jobTitle = container.querySelector('.job-card h3');
+      const jobRect = jobTitle.getBoundingClientRect();
+      const buttonRect = saveButton.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+
+      const startX = jobRect.left - containerRect.left + jobRect.width / 2;
+      const startY = jobRect.top - containerRect.top + jobRect.height / 2;
+      const endX = buttonRect.left - containerRect.left + buttonRect.width / 2;
+      const endY = buttonRect.top - containerRect.top + buttonRect.height / 2;
+
+      // Initial position
+      cursor.style.left = `${startX}px`;
+      cursor.style.top = `${startY}px`;
+      cursor.style.opacity = '1';
+
+      // Move to button in a straight line with consistent timing
+      setTimeout(() => {
+        cursor.style.transition = 'left 1.5s linear, top 1.5s linear';
+        cursor.style.left = `${endX}px`;
+        cursor.style.top = `${endY}px`;
+      }, 500);
+
+      // Click and show success
+      setTimeout(() => {
+        cursor.classList.add('clicking');
+        saveButton.classList.add('active');
+        
+        setTimeout(() => {
+          successMessage.classList.add('show');
+          cursor.classList.add('fade-out');
+          
+          setTimeout(() => {
+            saveButton.classList.remove('active');
+            setTimeout(animate, 1000);
+          }, 1500);
+        }, 300);
+      }, 2000);
+    }
+
+    // Start animation
+    animate();
+  }
+
+  // Setup animations for all save demos
+  document.querySelectorAll('.save-demo').forEach(setupCursorAnimation);
+</script>

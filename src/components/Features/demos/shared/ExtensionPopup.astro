@@ -1,0 +1,101 @@
+---
+import PlatformSuggestions from './PlatformSuggestions.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class={`extension-popup ${className || ''}`}>
+  <div class="popup-header">
+    <img src="/favicon.svg" alt="AppliCrawler" width="24" height="24" />
+    <span>AppliCrawler</span>
+  </div>
+  <button class="save-button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+    </svg>
+    一键收藏
+  </button>
+  <div class="success-message">
+    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M20 6L9 17l-5-5"/>
+    </svg>
+    收藏成功
+  </div>
+  <PlatformSuggestions />
+</div>
+
+<style>
+  .extension-popup {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(var(--text), 0.1);
+  }
+
+  .popup-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .popup-header span {
+    font-weight: 500;
+  }
+
+  .save-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgb(var(--primary));
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .save-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary), 0.2);
+  }
+
+  .success-message {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    background: rgb(var(--primary));
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(var(--primary), 0.3);
+  }
+
+  .success-message .checkmark {
+    color: white;
+  }
+
+  .success-message.show {
+    opacity: 1;
+    transform: translate(-50%, -120%);
+  }
+</style>

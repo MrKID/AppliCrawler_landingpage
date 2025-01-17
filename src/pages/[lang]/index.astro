@@ -1,0 +1,53 @@
+---
+import { getLangFromUrl } from '../../i18n/config';
+import { createLanguageRoutes } from '../../lib/routes';
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero/Hero.astro';
+import Features from '../../components/Features/Features.astro';
+import PlatformSlider from '../../components/Platforms/PlatformSlider.astro';
+import HowToUse from '../../components/HowToUse/HowToUse.astro';
+import Contact from '../../components/Contact.astro';
+
+export function getStaticPaths() {
+  return createLanguageRoutes();
+}
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<Layout title="AppliCrawler - 让求职更轻松" lang={lang}>
+  <main>
+    <Hero />
+    <Features />
+    <section class="platforms-section">
+      <h2>支持平台</h2>
+      <PlatformSlider />
+    </section>
+    <HowToUse />
+    <Contact />
+  </main>
+</Layout>
+
+<style>
+  .platforms-section {
+    padding: 8rem 0;
+    background: linear-gradient(180deg, 
+      rgba(var(--background), 0) 0%,
+      rgba(var(--primary), 0.05) 50%,
+      rgba(var(--background), 0) 100%
+    );
+  }
+
+  .platforms-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    color: rgb(var(--primary));
+  }
+
+  @media (max-width: 768px) {
+    .platforms-section h2 {
+      font-size: 2rem;
+    }
+  }
+</style>

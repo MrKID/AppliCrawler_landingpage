@@ -1,0 +1,116 @@
+---
+import { getLangFromUrl, supportedLangs } from '../i18n/config';
+
+const url = Astro.url;
+const currentLang = getLangFromUrl(url);
+
+function getNewUrl(lang: string) {
+  const [, , ...rest] = url.pathname.split('/');
+  return `/${lang}/${rest.join('/')}` || `/${lang}`;
+}
+---
+
+<div class="language-picker">
+  <button class="lang-button">
+    {currentLang === 'zh' ? (
+      <span class="icon">
+        <img src="/flags/zh.svg" alt="中文" width="24" height="24" />
+      </span>
+    ) : (
+      <span class="icon">
+        <img src="/flags/en.svg" alt="English" width="24" height="24" />
+      </span>
+    )}
+  </button>
+  <div class="lang-dropdown">
+    {supportedLangs.map(lang => (
+      <a
+        href={getNewUrl(lang)}
+        class:list={['lang-option', { active: lang === currentLang }]}
+      >
+        <span class="icon">
+          <img 
+            src={`/flags/${lang}.svg`} 
+            alt={lang === 'zh' ? '中文' : 'English'} 
+            width="24" 
+            height="24" 
+          />
+        </span>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .language-picker {
+    position: relative;
+  }
+
+  .lang-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid rgba(var(--text), 0.1);
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .lang-button:hover {
+    background: rgba(var(--text), 0.05);
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lang-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background: rgb(var(--card-bg));
+    border: 1px solid rgba(var(--text), 0.1);
+    border-radius: 8px;
+    padding: 0.5rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .language-picker:hover .lang-dropdown {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .lang-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0.5rem;
+    color: rgb(var(--text));
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .lang-option:hover {
+    background: rgba(var(--primary), 0.1);
+  }
+
+  .lang-option.active {
+    background: rgb(var(--primary));
+    color: white;
+  }
+</style>

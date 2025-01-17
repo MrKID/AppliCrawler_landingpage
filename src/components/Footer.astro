@@ -1,0 +1,63 @@
+---
+const { lang = 'zh' } = Astro.props;
+
+const links = [
+  { text: "服务条款", href: `/${lang}/terms` },
+  { text: "隐私政策", href: `/${lang}/privacy` }
+];
+---
+
+<footer class="footer">
+  <div class="footer-content">
+    <nav class="footer-links">
+      {links.map(link => (
+        <a href={link.href} class="footer-link">{link.text}</a>
+      ))}
+    </nav>
+    <p class="copyright">
+      © {new Date().getFullYear()} AppliCrawler. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding: 2rem 0;
+    background: rgb(var(--background));
+    border-top: 1px solid rgba(var(--text), 0.1);
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+  }
+
+  .footer-links {
+    margin-bottom: 1rem;
+  }
+
+  .footer-link {
+    color: rgba(var(--text), 0.7);
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 0.875rem;
+    transition: color 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: rgb(var(--primary));
+  }
+
+  .copyright {
+    color: rgba(var(--text), 0.7);
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      padding: 0 1rem;
+    }
+  }
+</style>

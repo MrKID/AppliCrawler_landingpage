@@ -1,0 +1,66 @@
+---
+import Logo from './shared/Logo.astro';
+---
+
+<nav class="navigation">
+  <div class="nav-container">
+    <div class="nav-left">
+      <a href="/" class="logo-link">
+        <Logo size={32} />
+        <span>AppliCrawler</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(var(--background), 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(var(--text), 0.1);
+    height: 64px;
+  }
+
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: rgb(var(--text));
+    font-weight: 600;
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 768px) {
+    .navigation {
+      height: 56px;
+    }
+
+    .nav-container {
+      padding: 0 1rem;
+    }
+
+    .logo-link span {
+      display: none;
+    }
+  }
+</style>

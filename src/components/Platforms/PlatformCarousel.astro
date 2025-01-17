@@ -1,0 +1,181 @@
+---
+import PlatformCard from './PlatformCard.astro';
+import CarouselControls from './CarouselControls.astro';
+
+const platforms = [
+  { 
+    name: "LinkedIn",
+    icon: "/linkedin.svg",
+    color: "#0077B5",
+    description: "全球最大的职业社交平台"
+  },
+  { 
+    name: "Indeed",
+    icon: "/indeed.svg",
+    color: "#2164F3",
+    description: "覆盖全球的求职搜索引擎"
+  },
+  { 
+    name: "Glassdoor",
+    icon: "/glassdoor.svg",
+    color: "#0CAA41",
+    description: "真实公司评价和薪资数据"
+  },
+  { 
+    name: "51job",
+    icon: "/51job.svg",
+    color: "#FF6721",
+    description: "国内领先的招聘平台"
+  },
+  { 
+    name: "BOSS直聘",
+    icon: "/boss.svg",
+    color: "#00B38A",
+    description: "直接对话 HR 和招聘经理",
+    whiteBackground: true
+  },
+  { 
+    name: "猎聘网",
+    icon: "/liepin.svg",
+    color: "#FF6721",
+    description: "高端人才招聘平台",
+    whiteBackground: true
+  }
+];
+---
+
+<div class="platform-carousel">
+  <div class="carousel-container">
+    <div class="carousel-track">
+      {platforms.map(platform => (
+        <div class="carousel-slide">
+          <PlatformCard {...platform} />
+        </div>
+      ))}
+    </div>
+  </div>
+  <CarouselControls />
+</div>
+
+<style>
+  .platform-carousel {
+    position: relative;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 3rem;
+  }
+
+  .carousel-container {
+    overflow: hidden;
+    margin: -3rem;
+    padding: 3rem;
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: 3rem;
+    transition: transform 0.5s ease;
+  }
+
+  .carousel-slide {
+    flex: 0 0 600px;
+    max-width: 600px;
+    opacity: 0.5;
+    transform: scale(0.9);
+    transition: all 0.5s ease;
+  }
+
+  .carousel-slide.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  @media (max-width: 1200px) {
+    .carousel-slide {
+      flex: 0 0 500px;
+      max-width: 500px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .platform-carousel {
+      padding: 2rem;
+    }
+
+    .carousel-container {
+      margin: -2rem;
+      padding: 2rem;
+    }
+
+    .carousel-track {
+      gap: 2rem;
+    }
+
+    .carousel-slide {
+      flex: 0 0 320px;
+      max-width: 320px;
+    }
+  }
+</style>
+
+<script>
+  function setupCarousel() {
+    const track = document.querySelector('.carousel-track');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    
+    if (!track || !slides.length || !prevBtn || !nextBtn) return;
+
+    let currentIndex = 0;
+    const slideWidth = slides[0].offsetWidth + 48; // Including gap (3rem)
+
+    function updateSlides() {
+      const offset = -currentIndex * slideWidth;
+      track.style.transform = `translateX(${offset}px)`;
+
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentIndex);
+      });
+
+      // Update button states
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === slides.length - 1;
+    }
+
+    function goToSlide(index) {
+      currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+      updateSlides();
+    }
+
+    prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+    nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+    // Auto advance
+    let autoplayInterval = setInterval(() => {
+      goToSlide((currentIndex + 1) % slides.length);
+    }, 4000);
+
+    track.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+    track.addEventListener('mouseleave', () => {
+      autoplayInterval = setInterval(() => {
+        goToSlide((currentIndex + 1) % slides.length);
+      }, 4000);
+    });
+
+    // Initial state
+    updateSlides();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      const newSlideWidth = slides[0].offsetWidth + 48;
+      if (newSlideWidth !== slideWidth) {
+        location.reload();
+      }
+    });
+  }
+
+  // Initialize carousel
+  setupCarousel();
+</script>

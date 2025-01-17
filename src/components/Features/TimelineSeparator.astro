@@ -1,0 +1,75 @@
+---
+interface Props {
+  align?: 'left' | 'right';
+  isLast?: boolean;
+}
+
+const { align = 'left', isLast = false } = Astro.props;
+---
+
+<div class={`timeline-separator ${align}`}>
+  <div class="line">
+    <div class="line-segment top"></div>
+    <div class="line-segment middle"></div>
+    <div class="line-segment bottom"></div>
+  </div>
+  <div class="dot"></div>
+</div>
+
+<style>
+  .timeline-separator {
+    position: relative;
+    width: 2px;
+    height: 100%;
+    margin: 0 2rem;
+  }
+
+  .line {
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+
+  .line-segment {
+    position: absolute;
+    width: 100%;
+    background: rgb(var(--primary));
+    opacity: 0.3;
+  }
+
+  .line-segment.top {
+    top: -4rem;
+    height: 4rem;
+  }
+
+  .line-segment.middle {
+    top: 0;
+    height: 100%;
+  }
+
+  .line-segment.bottom {
+    bottom: -4rem;
+    height: 4rem;
+  }
+
+  .dot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    background: rgb(var(--primary));
+    border: 2px solid rgb(var(--background));
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 4px rgba(var(--primary), 0.2);
+  }
+
+  @media (max-width: 1200px) {
+    .timeline-separator {
+      display: none;
+    }
+  }
+</style>

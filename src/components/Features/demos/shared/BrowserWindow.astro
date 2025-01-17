@@ -1,0 +1,75 @@
+---
+interface Props {
+  url?: string;
+}
+
+const { url = 'linkedin.com/jobs' } = Astro.props;
+---
+
+<div class="browser-window">
+  <div class="browser-header">
+    <div class="browser-actions">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="url-bar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+      <span>{url}</span>
+    </div>
+  </div>
+  <div class="browser-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .browser-window {
+    background: rgb(var(--card-bg));
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(var(--text), 0.1);
+    height: 100%;
+  }
+
+  .browser-header {
+    background: rgb(23, 23, 23);
+    padding: 0.75rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .browser-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .browser-actions span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .browser-actions span:nth-child(1) { background: #FF5F57; }
+  .browser-actions span:nth-child(2) { background: #FFBD2E; }
+  .browser-actions span:nth-child(3) { background: #28C840; }
+
+  .url-bar {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+  }
+
+  .browser-content {
+    padding: 1.5rem;
+    position: relative;
+  }
+</style>

@@ -1,0 +1,44 @@
+---
+import ContactForm from './Contact/ContactForm';
+import SectionTitle from './shared/SectionTitle.astro';
+---
+
+<section class="contact" id="contact">
+  <div class="contact-container">
+    <SectionTitle text="联系我们" />
+    <div class="contact-content">
+      <ContactForm client:load />
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding: 8rem 0;
+    background: linear-gradient(180deg, 
+      rgba(var(--background), 0) 0%,
+      rgba(var(--primary), 0.05) 50%,
+      rgba(var(--background), 0) 100%
+    );
+  }
+
+  .contact-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .contact-content {
+    background: rgb(var(--card-bg));
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(var(--primary), 0.1);
+    border: 1px solid rgba(var(--text), 0.1);
+    overflow: hidden;
+  }
+
+  @media (max-width: 768px) {
+    .contact-container {
+      padding: 0 1rem;
+    }
+  }
+</style>

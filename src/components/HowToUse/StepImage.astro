@@ -1,0 +1,50 @@
+---
+interface Props {
+  step: "01" | "02" | "03";
+}
+
+const { step } = Astro.props;
+
+const images = {
+  "01": {
+    src: "/screenshots/chrome-store.png",
+    alt: "Chrome 商店安装页面"
+  },
+  "02": {
+    src: "/screenshots/save-job.png",
+    alt: "一键收藏职位"
+  },
+  "03": {
+    src: "/screenshots/dashboard.png",
+    alt: "职位管理面板"
+  }
+};
+
+const image = images[step];
+---
+
+<div class="step-image">
+  <img src={image.src} alt={image.alt} loading="lazy" />
+</div>
+
+<style>
+  .step-image {
+    width: 100%;
+    height: 160px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    background: rgba(var(--text), 0.05);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .step-image:hover img {
+    transform: scale(1.05);
+  }
+</style>

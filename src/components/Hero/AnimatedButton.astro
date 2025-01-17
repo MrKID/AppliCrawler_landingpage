@@ -1,0 +1,33 @@
+---
+interface Props {
+  delay?: number;
+}
+
+const { delay = 0 } = Astro.props;
+---
+
+<div 
+  class="animate-button"
+  style={`animation-delay: ${delay}ms`}
+>
+  <slot />
+</div>
+
+<style>
+  .animate-button {
+    opacity: 0;
+    transform: scale(0.9);
+    animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>

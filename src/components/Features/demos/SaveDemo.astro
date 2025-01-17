@@ -1,0 +1,144 @@
+---
+import BrowserWindow from './shared/BrowserWindow.astro';
+import ExtensionPopup from './shared/ExtensionPopup.astro';
+import CursorAnimation from './shared/CursorAnimation.astro';
+
+const jobData = {
+  title: "Senior Frontend Developer",
+  company: "Tech Company Inc.",
+  tags: ["Remote", "Full-time"]
+};
+---
+
+<div class="save-demo">
+  <BrowserWindow url="linkedin.com/jobs/view/senior-frontend-developer">
+    <div class="job-card">
+      <h3>{jobData.title}</h3>
+      <p>{jobData.company}</p>
+      <div class="job-tags">
+        {jobData.tags.map(tag => (
+          <span>{tag}</span>
+        ))}
+      </div>
+    </div>
+    <ExtensionPopup />
+    <CursorAnimation />
+  </BrowserWindow>
+</div>
+
+<style>
+  .save-demo {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .job-card {
+    background: rgb(var(--background));
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(var(--text), 0.1);
+  }
+
+  .job-card h3 {
+    margin: 0 0 0.5rem;
+    color: rgb(var(--text));
+    font-size: 1.25rem;
+  }
+
+  .job-card p {
+    margin: 0 0 1rem;
+    color: rgba(var(--text), 0.7);
+  }
+
+  .job-tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .job-tags span {
+    background: rgba(var(--primary), 0.1);
+    color: rgb(var(--primary));
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+  }
+</style>
+
+<script>
+  function setupSaveAnimation(container) {
+    const cursor = container.querySelector('.cursor');
+    const saveButton = container.querySelector('.save-button');
+    const successMessage = container.querySelector('.success-message');
+    const platformSuggestions = container.querySelector('.platform-suggestions');
+    
+    if (!cursor || !saveButton || !successMessage || !platformSuggestions) return;
+
+    function animate() {
+      // Reset states
+      cursor.style.transition = 'none';
+      cursor.style.opacity = '0';
+      cursor.classList.remove('clicking');
+      successMessage.classList.remove('show');
+      platformSuggestions.classList.remove('show');
+
+      // Start from job title
+      const jobTitle = container.querySelector('.job-card h3');
+      const jobRect = jobTitle.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      
+      const startX = jobRect.left - containerRect.left + jobRect.width / 2;
+      const startY = jobRect.top - containerRect.top + jobRect.height / 2;
+
+      // Move to save button
+      const buttonRect = saveButton.getBoundingClientRect();
+      const endX = buttonRect.left - containerRect.left + buttonRect.width / 2;
+      const endY = buttonRect.top - containerRect.top + buttonRect.height / 2;
+
+      // Initial position
+      cursor.style.left = `${startX}px`;
+      cursor.style.top = `${startY}px`;
+      cursor.style.opacity = '1';
+
+      // Move to button
+      setTimeout(() => {
+        cursor.style.transition = 'all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        cursor.style.left = `${endX}px`;
+        cursor.style.top = `${endY}px`;
+      }, 500);
+
+      // Click effect
+      setTimeout(() => {
+        cursor.classList.add('clicking');
+        saveButton.classList.add('active');
+        
+        // Show success message
+        setTimeout(() => {
+          successMessage.classList.add('show');
+          
+          // Show platform suggestions
+          setTimeout(() => {
+            platformSuggestions.classList.add('show');
+            
+            // Reset and repeat
+            setTimeout(() => {
+              cursor.classList.remove('clicking');
+              saveButton.classList.remove('active');
+              successMessage.classList.remove('show');
+              platformSuggestions.classList.remove('show');
+              
+              // Restart animation
+              setTimeout(animate, 1000);
+            }, 3000);
+          }, 1000);
+        }, 300);
+      }, 2000);
+    }
+
+    // Start animation
+    animate();
+  }
+
+  // Setup animations for all save demos
+  document.querySelectorAll('.save-demo').forEach(setupSaveAnimation);
+</script>

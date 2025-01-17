@@ -1,0 +1,197 @@
+/* Features Section */
+.features {
+  padding: 8rem 0;
+  position: relative;
+}
+
+.features h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 4rem;
+  color: rgb(var(--primary));
+  font-weight: 600;
+}
+
+.feature-row {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  gap: 4rem;
+}
+
+.feature-row:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.feature-content {
+  flex: 1;
+  padding: 0 2rem;
+}
+
+.feature-content h3 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: rgb(var(--primary));
+}
+
+.feature-content p {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: rgba(var(--text), 0.8);
+}
+
+.feature-demo {
+  flex: 1;
+  min-height: 400px;
+  background: rgb(var(--card-bg));
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(var(--primary), 0.1);
+  overflow: hidden;
+  border: 1px solid rgba(var(--text), 0.1);
+}
+
+/* Desktop (1200px and up) */
+@media (min-width: 1200px) {
+  .feature-row {
+    padding: 6rem 2rem;
+  }
+
+  .feature-content {
+    padding: 0 4rem;
+  }
+
+  .feature-demo {
+    min-height: 500px;
+  }
+}
+
+/* Tablet (768px to 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .features h2 {
+    font-size: 2.25rem;
+    margin-bottom: 3rem;
+  }
+
+  .feature-row {
+    padding: 4rem 2rem;
+    gap: 3rem;
+  }
+
+  .feature-content h3 {
+    font-size: 1.75rem;
+  }
+
+  .feature-content p {
+    font-size: 1.125rem;
+  }
+
+  .feature-demo {
+    min-height: 350px;
+  }
+}
+
+/* Mobile (up to 767px) */
+@media (max-width: 767px) {
+  .features {
+    padding: 4rem 0;
+  }
+
+  .features h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .feature-row {
+    flex-direction: column;
+    padding: 2rem 1rem;
+    gap: 2rem;
+  }
+
+  .feature-row:nth-child(even) {
+    flex-direction: column;
+  }
+
+  .feature-content {
+    padding: 0 1rem;
+    text-align: center;
+  }
+
+  .feature-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature-content p {
+    font-size: 1rem;
+  }
+
+  .feature-demo {
+    min-height: 300px;
+    width: 100%;
+  }
+}
+
+/* Small Mobile (up to 375px) */
+@media (max-width: 375px) {
+  .features {
+    padding: 3rem 0;
+  }
+
+  .feature-row {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .feature-content {
+    padding: 0 0.75rem;
+  }
+
+  .feature-demo {
+    min-height: 250px;
+  }
+}
+
+/* Ensure smooth transitions */
+.feature-row,
+.feature-content,
+.feature-demo {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .feature-demo {
+    -webkit-transform: translateZ(0);
+  }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .feature-demo {
+    border-width: 0.5px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .feature-demo {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Print styles */
+@media print {
+  .features {
+    padding: 2rem 0;
+  }
+
+  .feature-demo {
+    display: none;
+  }
+
+  .feature-content {
+    flex: 1;
+    padding: 0;
+  }
+}

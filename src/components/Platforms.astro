@@ -1,0 +1,20 @@
+---
+import SectionTitle from './shared/SectionTitle.astro';
+import PlatformCarousel from './Platforms/PlatformCarousel.astro';
+---
+
+<section class="platforms">
+  <SectionTitle text="支持平台" />
+  <PlatformCarousel />
+</section>
+
+<style>
+  .platforms {
+    padding: 8rem 0;
+    background: linear-gradient(180deg, 
+      rgba(var(--background), 0) 0%,
+      rgba(var(--primary), 0.05) 50%,
+      rgba(var(--background), 0) 100%
+    );
+  }
+</style>

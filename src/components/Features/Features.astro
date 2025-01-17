@@ -1,0 +1,137 @@
+---
+import FeatureDemo from './FeatureDemo.astro';
+import TimelineSeparator from './TimelineSeparator.astro';
+import SectionTitle from '../shared/SectionTitle.astro';
+
+const features = [
+  {
+    title: "多平台支持",
+    description: "支持 LinkedIn、Indeed、Glassdoor 等主流招聘平台，一站式管理所有职位申请。无需在多个平台之间切换，轻松追踪所有职位状态。",
+    demo: "platforms",
+    align: "left"
+  },
+  {
+    title: "一键收藏",
+    description: "浏览职位时一键保存，自动记录职位详情、公司信息和申请状态。智能提取关键信息，告别繁琐的手动记录。",
+    demo: "save",
+    align: "right"
+  },
+  {
+    title: "智能分类",
+    description: "自动整理职位类型、技术栈和薪资范围，支持自定义标签分类。快速筛选感兴趣的职位，提高求职效率。",
+    demo: "categorize",
+    align: "left"
+  },
+  {
+    title: "申请追踪",
+    description: "可视化展示申请进度，自动提醒面试时间。支持记录面试反馈和重要节点，帮助您做出更好的职业选择。",
+    demo: "track",
+    align: "right"
+  }
+];
+---
+
+<section class="features">
+  <SectionTitle text="主要功能" />
+  <div class="features-grid">
+    {features.map((feature, index) => (
+      <div class={`feature-row ${feature.align}`}>
+        {feature.align === 'left' ? (
+          <>
+            <div class="feature-content">
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+            </div>
+            <TimelineSeparator 
+              align="left" 
+              isLast={index === features.length - 1}
+            />
+            <div class="feature-demo">
+              <FeatureDemo type={feature.demo} />
+            </div>
+          </>
+        ) : (
+          <>
+            <div class="feature-demo">
+              <FeatureDemo type={feature.demo} />
+            </div>
+            <TimelineSeparator 
+              align="right" 
+              isLast={index === features.length - 1}
+            />
+            <div class="feature-content">
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+            </div>
+          </>
+        )}
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .features {
+    padding: 8rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .features-grid {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 2rem;
+  }
+
+  .feature-row {
+    display: grid;
+    grid-template-columns: 1.2fr auto 1.2fr;
+    gap: 0;
+    align-items: center;
+    padding: 4rem 0;
+  }
+
+  .feature-content {
+    max-width: 700px;
+    width: 100%;
+    padding: 0 3rem;
+  }
+
+  h3 {
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+    color: rgb(47, 112, 255);
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: rgba(var(--text), 0.8);
+  }
+
+  .feature-demo {
+    width: 100%;
+    padding: 0 3rem;
+  }
+
+  @media (max-width: 1200px) {
+    .feature-row {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .feature-content {
+      text-align: center;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .feature-demo {
+      padding: 0;
+    }
+  }
+</style>

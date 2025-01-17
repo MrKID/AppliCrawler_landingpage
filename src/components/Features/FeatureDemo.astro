@@ -1,0 +1,44 @@
+---
+import PlatformsDemo from './demos/PlatformsDemo.astro';
+import SaveDemo from './demos/SaveDemo.astro';
+import CategorizeDemo from './demos/CategorizeDemo.astro';
+import TrackDemo from './demos/TrackDemo.astro';
+
+interface Props {
+  type: 'platforms' | 'save' | 'categorize' | 'track';
+}
+
+const { type } = Astro.props;
+
+const DemoComponent = {
+  platforms: PlatformsDemo,
+  save: SaveDemo,
+  categorize: CategorizeDemo,
+  track: TrackDemo
+}[type];
+---
+
+<div class="demo-container">
+  <DemoComponent />
+</div>
+
+<style>
+  .demo-container {
+    background: rgb(var(--card-bg));
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    border: 1px solid rgba(var(--text), 0.1);
+    height: 500px; /* Increased from 400px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  @media (max-width: 1200px) {
+    .demo-container {
+      height: 400px;
+    }
+  }
+</style>

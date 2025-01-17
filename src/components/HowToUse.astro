@@ -1,0 +1,165 @@
+---
+const steps = [
+  {
+    number: "01",
+    title: "下载安装",
+    description: "从 Chrome 商店下载并安装插件，点击右上角的'添加至 Chrome'按钮完成安装"
+  },
+  {
+    number: "02",
+    title: "一键收藏",
+    description: "浏览招聘网站时点击插件图标，即可一键保存职位信息，包括职位详情、公司信息等"
+  },
+  {
+    number: "03",
+    title: "统一管理",
+    description: "在插件面板中查看所有已收藏的职位，支持按平台、职位类型、技能要求等多维度筛选"
+  }
+];
+---
+
+<section class="how-to-use">
+  <h2>使用方法</h2>
+  <div class="steps-container">
+    <div class="steps">
+      {steps.map((step, index) => (
+        <div class="step-wrapper">
+          <div class="step">
+            <div class="step-content">
+              <div class="step-number">{step.number}</div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          </div>
+          {index < steps.length - 1 && (
+            <div class="connector">
+              <div class="arrow">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 12h14m-4-4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .how-to-use {
+    padding: 8rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    background: linear-gradient(to right, rgb(var(--primary)), rgb(var(--secondary)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .steps-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .steps {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 2rem;
+  }
+
+  .step-wrapper {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    max-width: 320px; /* Set fixed maximum width */
+    min-width: 280px; /* Set fixed minimum width */
+  }
+
+  .step {
+    width: 100%;
+  }
+
+  .step-content {
+    background: rgba(var(--card-bg), 0.5);
+    padding: 2rem;
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(var(--text), 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    text-align: center;
+  }
+
+  .step:hover .step-content {
+    transform: translateY(-5px);
+    border-color: rgba(var(--primary), 0.3);
+    box-shadow: 0 8px 24px rgba(var(--primary), 0.1);
+  }
+
+  .step-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgba(var(--primary), 0.3);
+    margin-bottom: 1rem;
+    font-feature-settings: "tnum";
+  }
+
+  .step h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: rgb(var(--text));
+  }
+
+  .step p {
+    color: rgba(var(--text), 0.8);
+    line-height: 1.6;
+    font-size: 0.875rem;
+  }
+
+  .connector {
+    flex: 0 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(var(--primary), 0.3);
+  }
+
+  .arrow {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(8px); }
+  }
+
+  @media (max-width: 1024px) {
+    .steps {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .step-wrapper {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .connector {
+      transform: rotate(90deg);
+      margin: 1rem 0;
+    }
+  }
+</style>

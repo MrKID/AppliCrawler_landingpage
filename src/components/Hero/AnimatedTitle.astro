@@ -1,0 +1,54 @@
+---
+---
+<div class="animated-title">
+  <h1>AppliCrawler</h1>
+</div>
+
+<style>
+  .animated-title {
+    position: relative;
+    display: inline-block;
+  }
+
+  h1 {
+    font-size: 5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(
+      300deg,
+      rgb(var(--primary)),
+      rgb(var(--secondary))
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: 
+      fadeIn 1s ease forwards,
+      gradient 8s ease infinite;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 3rem;
+    }
+  }
+</style>

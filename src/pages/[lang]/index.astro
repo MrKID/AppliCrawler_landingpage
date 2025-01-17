@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl } from '../../i18n/config';
+import { translations } from '../../i18n/translations';
 import { createLanguageRoutes } from '../../lib/routes';
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero/Hero.astro';
@@ -13,18 +14,19 @@ export function getStaticPaths() {
 }
 
 const lang = getLangFromUrl(Astro.url);
+const t = translations[lang as keyof typeof translations];
 ---
 
-<Layout title="AppliCrawler - 让求职更轻松" lang={lang}>
+<Layout title={t.title} lang={lang}>
   <main>
-    <Hero />
-    <Features />
+    <Hero t={t} />
+    <Features t={t} />
     <section class="platforms-section">
-      <h2>支持平台</h2>
-      <PlatformSlider />
+      <h2>{t.platforms.title}</h2>
+      <PlatformSlider t={t} />
     </section>
-    <HowToUse />
-    <Contact />
+    <HowToUse t={t} />
+    <Contact t={t} />
   </main>
 </Layout>
 

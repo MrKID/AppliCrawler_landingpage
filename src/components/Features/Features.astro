@@ -3,28 +3,34 @@ import FeatureDemo from './FeatureDemo.astro';
 import TimelineSeparator from './TimelineSeparator.astro';
 import SectionTitle from '../shared/SectionTitle.astro';
 
+interface Props {
+  t: any;
+}
+
+const { t } = Astro.props;
+
 const features = [
   {
-    title: "多平台支持",
-    description: "支持 LinkedIn、Indeed、Glassdoor 等主流招聘平台，一站式管理所有职位申请。无需在多个平台之间切换，轻松追踪所有职位状态。",
+    title: t.features.multiPlatform.title,
+    description: t.features.multiPlatform.description,
     demo: "platforms",
     align: "left"
   },
   {
-    title: "一键收藏",
-    description: "浏览职位时一键保存，自动记录职位详情、公司信息和申请状态。智能提取关键信息，告别繁琐的手动记录。",
+    title: t.features.oneClick.title,
+    description: t.features.oneClick.description,
     demo: "save",
     align: "right"
   },
   {
-    title: "智能分类",
-    description: "自动整理职位类型、技术栈和薪资范围，支持自定义标签分类。快速筛选感兴趣的职位，提高求职效率。",
+    title: t.features.smartCategories.title,
+    description: t.features.smartCategories.description,
     demo: "categorize",
     align: "left"
   },
   {
-    title: "申请追踪",
-    description: "可视化展示申请进度，自动提醒面试时间。支持记录面试反馈和重要节点，帮助您做出更好的职业选择。",
+    title: t.features.tracking.title,
+    description: t.features.tracking.description,
     demo: "track",
     align: "right"
   }
@@ -32,7 +38,7 @@ const features = [
 ---
 
 <section class="features">
-  <SectionTitle text="主要功能" />
+  <SectionTitle text={t.features.title} />
   <div class="features-grid">
     {features.map((feature, index) => (
       <div class={`feature-row ${feature.align}`}>

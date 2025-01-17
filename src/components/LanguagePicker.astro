@@ -8,54 +8,49 @@ function getNewUrl(lang: string) {
   const [, , ...rest] = url.pathname.split('/');
   return `/${lang}/${rest.join('/')}` || `/${lang}`;
 }
+
+const langNames = {
+  zh: '中文',
+  en: 'English'
+};
 ---
 
 <div class="language-picker">
   <button class="lang-button">
-    {currentLang === 'zh' ? (
-      <span class="icon">
-        <img src="/flags/zh.svg" alt="中文" width="24" height="24" />
-      </span>
-    ) : (
-      <span class="icon">
-        <img src="/flags/en.svg" alt="English" width="24" height="24" />
-      </span>
-    )}
+    {currentLang === 'zh' ? '中文' : 'English'}
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M6 8l4 4 4-4" />
+    </svg>
   </button>
-  <div class="lang-dropdown">
-    {supportedLangs.map(lang => (
-      <a
-        href={getNewUrl(lang)}
-        class:list={['lang-option', { active: lang === currentLang }]}
-      >
-        <span class="icon">
-          <img 
-            src={`/flags/${lang}.svg`} 
-            alt={lang === 'zh' ? '中文' : 'English'} 
-            width="24" 
-            height="24" 
-          />
-        </span>
-      </a>
-    ))}
+  <div class="lang-dropdown-wrapper">
+    <div class="lang-dropdown">
+      {supportedLangs.map(lang => (
+        <a
+          href={getNewUrl(lang)}
+          class:list={['lang-option', { active: lang === currentLang }]}
+        >
+          {langNames[lang as keyof typeof langNames]}
+        </a>
+      ))}
+    </div>
   </div>
 </div>
 
 <style>
   .language-picker {
     position: relative;
+    z-index: 1000;
   }
 
   .lang-button {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    padding: 0;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
     border: 1px solid rgba(var(--text), 0.1);
     border-radius: 8px;
     background: transparent;
+    color: rgb(var(--text));
     cursor: pointer;
     transition: all 0.3s ease;
   }
@@ -64,45 +59,40 @@ function getNewUrl(lang: string) {
     background: rgba(var(--text), 0.05);
   }
 
-  .icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .lang-dropdown {
+  .lang-dropdown-wrapper {
     position: absolute;
     top: 100%;
     right: 0;
-    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+  }
+
+  .language-picker:hover .lang-dropdown-wrapper {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .lang-dropdown {
     background: rgb(var(--card-bg));
     border: 1px solid rgba(var(--text), 0.1);
     border-radius: 8px;
     padding: 0.5rem;
-    opacity: 0;
-    transform: translateY(-10px);
-    pointer-events: none;
-    transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .language-picker:hover .lang-dropdown {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+    min-width: 120px;
   }
 
   .lang-option {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    padding: 0.5rem;
+    display: block;
+    padding: 0.5rem 1rem;
     color: rgb(var(--text));
     text-decoration: none;
     border-radius: 6px;
     transition: all 0.2s ease;
+    white-space: nowrap;
   }
 
   .lang-option:hover {
@@ -112,5 +102,12 @@ function getNewUrl(lang: string) {
   .lang-option.active {
     background: rgb(var(--primary));
     color: white;
+  }
+
+  @media (max-width: 768px) {
+    .lang-dropdown {
+      right: 0;
+      min-width: 100px;
+    }
   }
 </style>

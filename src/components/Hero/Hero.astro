@@ -3,17 +3,23 @@ import Background from './Background.astro';
 import AnimatedBackground from './AnimatedBackground.astro';
 import DownloadButton from './DownloadButton.astro';
 import AnimatedTitle from './AnimatedTitle.astro';
+
+interface Props {
+  t: any;
+}
+
+const { t } = Astro.props;
 ---
 
 <section class="hero">
   <div class="hero-content">
     <div class="logo-container">
       <div class="logo-glow"></div>
-      <AnimatedTitle />
+      <AnimatedTitle title={t.title} />
     </div>
-    <p class="subtitle">一键收藏各大招聘平台的职位，让求职更有条理</p>
+    <p class="subtitle">{t.subtitle}</p>
     <div class="cta-buttons">
-      <DownloadButton />
+      <DownloadButton text={t.downloadButton} />
     </div>
   </div>
   <AnimatedBackground />

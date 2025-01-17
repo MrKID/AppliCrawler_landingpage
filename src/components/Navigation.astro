@@ -1,5 +1,6 @@
 ---
 import Logo from './shared/Logo.astro';
+import LanguagePicker from './LanguagePicker.astro';
 ---
 
 <nav class="navigation">
@@ -9,6 +10,9 @@ import Logo from './shared/Logo.astro';
         <Logo size={32} />
         <span>AppliCrawler</span>
       </a>
+    </div>
+    <div class="nav-right">
+      <LanguagePicker />
     </div>
   </div>
 </nav>
@@ -33,6 +37,7 @@ import Logo from './shared/Logo.astro';
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 
   .nav-left {

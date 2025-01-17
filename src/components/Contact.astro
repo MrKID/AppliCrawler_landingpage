@@ -1,13 +1,19 @@
 ---
 import ContactForm from './Contact/ContactForm';
 import SectionTitle from './shared/SectionTitle.astro';
+
+interface Props {
+  t: any;
+}
+
+const { t } = Astro.props;
 ---
 
 <section class="contact" id="contact">
   <div class="contact-container">
-    <SectionTitle text="联系我们" />
+    <SectionTitle text={t.contact.title} />
     <div class="contact-content">
-      <ContactForm client:load />
+      <ContactForm client:load t={t.contact} />
     </div>
   </div>
 </section>

@@ -2,6 +2,7 @@
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import FloatingBlocks from '../components/background/FloatingBlocks.astro';
+import { translations } from '../i18n/translations';
 import '../styles/typography.css';
 
 interface Props {
@@ -10,13 +11,14 @@ interface Props {
 }
 
 const { title, lang = 'zh' } = Astro.props;
+const t = translations[lang as keyof typeof translations];
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="AppliCrawler - 让求职更轻松的浏览器插件，支持LinkedIn、Indeed、51job、BOSS直聘、猎聘网等平台" />
+    <meta name="description" content={t.subtitle} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
@@ -27,7 +29,7 @@ const { title, lang = 'zh' } = Astro.props;
     <FloatingBlocks />
     <Navigation />
     <slot />
-    <Footer />
+    <Footer t={t} lang={lang} />
   </body>
 </html>
 
@@ -59,6 +61,4 @@ const { title, lang = 'zh' } = Astro.props;
   * {
     box-sizing: border-box;
   }
-
-  /* Rest of the styles remain the same */
 </style>

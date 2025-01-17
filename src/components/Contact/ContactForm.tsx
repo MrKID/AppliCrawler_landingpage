@@ -1,6 +1,17 @@
 import { useState } from 'react';
 
-export default function ContactForm() {
+interface Props {
+  t: {
+    name: string;
+    email: string;
+    message: string;
+    submit: string;
+    success: string;
+    error: string;
+  };
+}
+
+export default function ContactForm({ t }: Props) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -21,7 +32,7 @@ export default function ContactForm() {
       });
 
       if (!response.ok) {
-        throw new Error('发送失败，请稍后重试');
+        throw new Error(t.error);
       }
 
       setSuccess(true);
@@ -29,7 +40,7 @@ export default function ContactForm() {
       setEmail('');
       setMessage('');
     } catch (err) {
-      setError(err instanceof Error ? err.message : '发送失败，请稍后重试');
+      setError(err instanceof Error ? err.message : t.error);
     } finally {
       setLoading(false);
     }
@@ -43,13 +54,12 @@ export default function ContactForm() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-xl font-semibold mb-2">消息已发送</h3>
-        <p className="text-gray-600 mb-6">感谢您的反馈，我们会尽快回复</p>
+        <h3 className="text-xl font-semibold mb-2">{t.success}</h3>
         <button 
           onClick={() => setSuccess(false)}
           className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors"
         >
-          发送新消息
+          {t.submit}
         </button>
       </div>
     );
@@ -59,7 +69,7 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} className="p-8 space-y-6">
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-          姓名
+          {t.name}
         </label>
         <input
           type="text"
@@ -68,13 +78,13 @@ export default function ContactForm() {
           onChange={(e) => setName(e.target.value)}
           required
           className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-          placeholder="请输入您的姓名"
+          placeholder={t.name}
         />
       </div>
 
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-          邮箱
+          {t.email}
         </label>
         <input
           type="email"
@@ -83,13 +93,13 @@ export default function ContactForm() {
           onChange={(e) => setEmail(e.target.value)}
           required
           className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-          placeholder="请输入您的邮箱地址"
+          placeholder={t.email}
         />
       </div>
 
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-          留言内容
+          {t.message}
         </label>
         <textarea
           id="message"
@@ -98,7 +108,7 @@ export default function ContactForm() {
           required
           rows={6}
           className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none"
-          placeholder="请输入您的留言内容"
+          placeholder={t.message}
         />
       </div>
 
@@ -113,7 +123,7 @@ export default function ContactForm() {
         disabled={loading}
         className="w-full px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-opacity-90 transition-colors disabled:opacity-50"
       >
-        {loading ? '发送中...' : '发送消息'}
+        {loading ? '...' : t.submit}
       </button>
     </form>
   );

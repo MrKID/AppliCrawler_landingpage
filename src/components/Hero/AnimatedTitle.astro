@@ -1,7 +1,13 @@
 ---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
 ---
+
 <div class="animated-title">
-  <h1>AppliCrawler</h1>
+  <h1>{title}</h1>
 </div>
 
 <style>

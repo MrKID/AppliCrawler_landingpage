@@ -1,9 +1,14 @@
 ---
-const { lang = 'zh' } = Astro.props;
+interface Props {
+  t: any;
+  lang: string;
+}
+
+const { t, lang } = Astro.props;
 
 const links = [
-  { text: "服务条款", href: `/${lang}/terms` },
-  { text: "隐私政策", href: `/${lang}/privacy` }
+  { text: t.footer.terms, href: `/${lang}/terms` },
+  { text: t.footer.privacy, href: `/${lang}/privacy` }
 ];
 ---
 

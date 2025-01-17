@@ -5,8 +5,10 @@ const url = Astro.url;
 const currentLang = getLangFromUrl(url);
 
 function getNewUrl(lang: string) {
-  const [, , ...rest] = url.pathname.split('/');
-  return `/${lang}/${rest.join('/')}` || `/${lang}`;
+  // Fix: Always start with the language code and preserve the rest of the path
+  const pathParts = url.pathname.split('/').filter(Boolean);
+  pathParts[0] = lang;
+  return `/${pathParts.join('/')}`;
 }
 
 const langNames = {
